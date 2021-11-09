@@ -1,4 +1,4 @@
-const asyncErrorBoundary = require("../errors/asyncErrorBoundry");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
 const criticsService = require("../critics/critics.service");
 const reviewsService = require("./reviews.service");
 
@@ -38,7 +38,7 @@ async function update(req, res, next) {
     };
     await reviewsService.update(updatedReview);
     const data = await reviewsService.read(req.params.reviewId);
-    data.critic = res.locals.critic; // todo: timestamp
+    data.critic = res.locals.critic; 
     res.json({ data });
   }
 

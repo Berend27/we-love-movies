@@ -13,27 +13,24 @@ async function movieExists(req, res, next) {
     next({ status: 404, message: `Movie cannot be found` });
 }
 
-async function list(req, res, next) {
+async function list(req, res) {
     const data = req.query.is_showing ? 
         await moviesService.listIfIsShowing() :
         await moviesService.list();
     res.json({ data });
 }
 
-async function listReviewsForMovie(req, res, next) {
+async function listReviewsForMovie(req, res) {
     const data = await reviewsService.listForMovie(req.params.movieId);
-    for (let review of data) {
-        review.critic = await criticsService.read(review.critic_id);
-    }
     res.json({ data });
 }
 
-async function listTheatersWithMovie(req, res, next) {
+async function listTheatersWithMovie(req, res) {
     const data = await theatersService.listTheatersWithMovie(res.locals.movie.movie_id);
     res.json({ data });
 }
 
-async function read(req, res, next) {
+async function read(req, res) {
     res.json({ data: res.locals.movie });
 }
 
